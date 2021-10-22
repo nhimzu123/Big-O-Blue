@@ -1,50 +1,44 @@
 """
-HackerRank: Breadth First Search
+HackerRank: Breadth-First-Search: Shortest Path
 """
+
 from queue import Queue
 
 
-def breadth_first_search(s, graph_li, path_li, visited_li):
-    visited_li[s - 1] = True
-    queue = Queue()
-    queue.put(s)
+def bfs(s):
+    q = Queue()
+    visited[s] = True
+    q.put(s)
 
-    while not queue.empty():
-        u = queue.get()
-        for v in graph_li[u - 1]:
-            if not visited_li[v - 1]:
-                visited_li[v - 1] = True
-                queue.put(v)
-                path_li[v - 1] = u
-
-    return path_li
-
-
-def print_path(s, f, path_li):
-    if s == f:
-        print(f, end=' ')
-    else:
-        if path_li[f - 1] == -1:
-            print("No path")
-        else:
-            print_path(s, f, path_li[f - 1])
-            print(f, end=' ')
+    while not q.empty():
+        u = q.get()
+        for v in graph[u]:
+            if not visited[v]:
+                visited[v] = True
+                q.put(v)
+                path[v] = u
+                dist[v] = dist[u] + 1
 
 
-if __name__ == '__main__':
-    q = int(input())
-    n, m = map(int, input().split())
+if __name__ == "__main__":
+    for _ in range(int(input())):
+        n, m = map(int, input().split())
 
-    graph = [[] for _ in range(n)]
-    path = [-1 for _ in range(n)]
-    visited = [False for _ in range(n)]
+        path = [-1 for _ in range(n+1)]
+        visited = [False for _ in range(n+1)]
+        graph = [[] for _ in range(n+1)]
+        dist = [0] * (n+1)
 
-    for _ in range(m):
-        query = input()
-        graph[int(query.split()[0]) - 1].append(int(query.split()[1]))
+        for _ in range(m):
+            u, v = map(int, input().split())
+            graph[u].append(v)
+            graph[v].append(u)
+        
+        s = int(input())
+        
+        bfs(s)
 
-    s = int(input())
-
-    res_path = breadth_first_search(s, graph, path, visited)
-    print(res_path)
-    # print_path(s=s, f=3, path_li=res_path)
+        for nu in range(1, n+1):
+            if nu != s:
+                print(dist[nu] * 6 if dist[nu] != 0 else -1, end=" ")
+        print()
