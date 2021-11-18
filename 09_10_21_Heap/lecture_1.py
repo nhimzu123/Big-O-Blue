@@ -1,6 +1,14 @@
 """
-1. Build a min/max-Heap with array
-2. Add/pop a value
+- Heap (Đống) là cấu trúc cây nhị phân hoàn chỉnh (complete binary tree)
+- Có 2 loại Heap:
+    * Min-heap: Mỗi node cha đều có giá trị nhỏ hơn hoặc bằng node con.
+    * Max-heap: Mỗi node cha đều có giá trị lớn hơn hoặc bằng node con.
+
+- Độ phức tạp của các thao tác trên Heap:
+    * Xây dựng cây Heap từ mảng: O(n)
+    * Tìm phần tử lớn nhất/nhỏ nhất trên Heap: O(1)
+    * Thêm 1 phần tử vào Heap: O(log(n))
+    * Xóa 1 phần tử vào Heap: O(log(n))
 """
 
 
